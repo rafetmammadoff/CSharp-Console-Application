@@ -1,0 +1,17 @@
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\bin\Debug\netcoreapp3.1\ConsoleApplication.exe
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\bin\Debug\netcoreapp3.1\ConsoleApplication.deps.json
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\bin\Debug\netcoreapp3.1\ConsoleApplication.runtimeconfig.json
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\bin\Debug\netcoreapp3.1\ConsoleApplication.runtimeconfig.dev.json
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\bin\Debug\netcoreapp3.1\ConsoleApplication.dll
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\bin\Debug\netcoreapp3.1\ConsoleApplication.pdb
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\bin\Debug\netcoreapp3.1\ConsoleAppClassLibrary.dll
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\bin\Debug\netcoreapp3.1\ConsoleAppClassLibrary.pdb
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.csproj.AssemblyReference.cache
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.AssemblyInfoInputs.cache
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.AssemblyInfo.cs
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.csproj.CoreCompileInputs.cache
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.csproj.CopyComplete
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.dll
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.pdb
+C:\Users\profe\Desktop\CSharp-Console-Application\ConsoleApplication\ConsoleApplication\obj\Debug\netcoreapp3.1\ConsoleApplication.genruntimeconfig.cache
