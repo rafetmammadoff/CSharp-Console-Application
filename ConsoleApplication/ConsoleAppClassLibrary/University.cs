@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleAppClassLibrary.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -136,7 +137,14 @@ namespace ConsoleAppClassLibrary
         public void UpdateStudent(string no,string newGroupNo)
         {
             int index = GetStudentIndex(no);
-            _students[index].GroupNo = newGroupNo;
+            if (index==-1)
+            {
+                throw new StudentNoNotFoundException($"{no} nomreli student tapilmadi");
+            }
+            if (index != -1)
+            {
+                _students[index].GroupNo = newGroupNo;
+            }
         }
 
         public static bool CheckName(string text)

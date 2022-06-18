@@ -21,7 +21,43 @@ namespace ConsoleApplication
                         ShowStudent(university);
                         break;
                     case "1.2":
-                        Console.WriteLine("Student ");
+                        AddStudent(university);
+                        break;
+                    case "1.3":
+                        UpdateStudent(university);
+                        break;
+                    case "1.4":
+                        Console.WriteLine("GroupNo yazsaniz qrupdaki telebelerin,bos buraxsaniz butun telebelerin ortalamasi gorsenecek");
+                        string groupNo= Console.ReadLine();
+                        if (!String.IsNullOrWhiteSpace(groupNo))
+                        {
+                            if (!Student.CheckGroupNo(groupNo))
+                            {
+                                throw new GroupNoNotCorrectException("Qrup nomresi duzgun deyil");
+                            }
+                            else
+                            {
+                                int totalPoint=0;
+                                int count=0;
+                                foreach (var item in university.Students)
+                                {
+                                    if (item.GroupNo==groupNo)
+                                    {
+                                        totalPoint += item.Point;
+                                        count++;
+                                    }
+                                }
+                                if (count>0)
+                                {
+                                    Console.WriteLine($"{groupNo} qrupundaki telebelerin ortalamasi : {totalPoint/count}");
+                                }
+                                else
+                                {
+                                    
+                                }
+                            }
+                        }
+
                         break;
                 }
             } while (option != "3");
@@ -88,6 +124,61 @@ namespace ConsoleApplication
             catch (Exception)
             {
                 Console.WriteLine("Bilinmedik bir xeta bas verdi");
+            }
+        }
+        static void AddStudent(University university)
+        {
+            string name;
+            do
+            {
+                Console.WriteLine("Student adini daxil edin");
+                name = Console.ReadLine();
+            } while (!Student.CheckNameSurname(name));
+            string surname;
+            do
+            {
+                Console.WriteLine("Student soyadini daxil edin");
+                surname = Console.ReadLine();
+            } while (!Student.CheckNameSurname(surname));
+            string groupNo;
+            do
+            {
+                Console.WriteLine("Student qrup nomresini daxil edin");
+                groupNo = Console.ReadLine();
+            } while (!Student.CheckGroupNo(groupNo));
+            int point;
+            string pointstr;
+            do
+            {
+                Console.WriteLine("Student qiymetini daxil edin");
+                pointstr = Console.ReadLine();
+            } while (!int.TryParse(pointstr, out point) || point < 0 || point > 100);
+            Student student = new Student
+            {
+                Name = name,
+                Surname = surname,
+                Point = point,
+                GroupNo = groupNo
+            };
+            university.AddStudent(student);
+        }
+        static void UpdateStudent(University university)
+        {
+            try
+            {
+                Console.WriteLine("Qrup nomresin deyismek istediyiniz telebenin nomresini daxil edin");
+                string no = Console.ReadLine();
+                string newGroupNo;
+                do
+                {
+                    Console.WriteLine("Yeni qrup nomresini daxil edin");
+                    newGroupNo = Console.ReadLine();
+                } while (!Student.CheckGroupNo(newGroupNo));
+                university.UpdateStudent(no, newGroupNo);
+            }
+            catch (StudentNoNotFoundException exp)
+            {
+                Console.WriteLine(exp.Message);
             }
         }
     }
