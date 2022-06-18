@@ -27,37 +27,12 @@ namespace ConsoleApplication
                         UpdateStudent(university);
                         break;
                     case "1.4":
-                        Console.WriteLine("GroupNo yazsaniz qrupdaki telebelerin,bos buraxsaniz butun telebelerin ortalamasi gorsenecek");
-                        string groupNo= Console.ReadLine();
-                        if (!String.IsNullOrWhiteSpace(groupNo))
-                        {
-                            if (!Student.CheckGroupNo(groupNo))
-                            {
-                                throw new GroupNoNotCorrectException("Qrup nomresi duzgun deyil");
-                            }
-                            else
-                            {
-                                int totalPoint=0;
-                                int count=0;
-                                foreach (var item in university.Students)
-                                {
-                                    if (item.GroupNo==groupNo)
-                                    {
-                                        totalPoint += item.Point;
-                                        count++;
-                                    }
-                                }
-                                if (count>0)
-                                {
-                                    Console.WriteLine($"{groupNo} qrupundaki telebelerin ortalamasi : {totalPoint/count}");
-                                }
-                                else
-                                {
-                                    
-                                }
-                            }
-                        }
-
+                        ShowPointAverage(university);
+                        break;
+                    case "2.1":
+                        ShowEmployees(university);
+                        break;
+                    case "2.2":
                         break;
                 }
             } while (option != "3");
@@ -177,6 +152,92 @@ namespace ConsoleApplication
                 university.UpdateStudent(no, newGroupNo);
             }
             catch (StudentNoNotFoundException exp)
+            {
+                Console.WriteLine(exp.Message);
+            }
+        }
+        static void CheckPointAverage(University university)
+        {
+            Console.WriteLine("GroupNo yazsaniz qrupdaki telebelerin,bos buraxsaniz butun telebelerin ortalamasi gorsenecek");
+            string groupNo = Console.ReadLine();
+            if (!String.IsNullOrWhiteSpace(groupNo))
+            {
+                if (!Student.CheckGroupNo(groupNo))
+                {
+                    throw new GroupNoNotCorrectException("Qrup nomresi duzgun deyil");
+                }
+                else
+                {
+                    int ortalama=0;
+                    try
+                    {
+                         ortalama = university.CalcStudentAverage(groupNo);
+                    }
+                    catch (StudentNotFoundException exp)
+                    {
+                        Console.WriteLine(exp.Message);
+                        return;
+                    }
+                    Console.WriteLine($"{groupNo} qrupundaki telebelerin ortalamasi : {ortalama}");
+                }
+            }
+            else
+            {
+                int ortalama = university.CalcStudentAverage();
+                Console.WriteLine($"Butun telebelerin ortalamasi : {ortalama}");
+            }
+        }
+        static void ShowPointAverage(University university)
+        {
+            try
+            {
+                CheckPointAverage(university);
+            }
+            catch (StudentNotFoundException exp)
+            {
+                Console.WriteLine(exp.Message);
+            }
+            catch(GroupNoNotCorrectException exp)
+            {
+                Console.WriteLine(exp.Message);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Bilinmedik bir xeta bas verdi.");
+            }
+        }
+        static void CheckShowEmployes(University university)
+        {
+            string departament;
+            do
+            {
+                Console.WriteLine("Departament adi yazsaniz departamentdeki iscileri,bos buraxsaniz butun isciler goruntulenecek.");
+                departament = Console.ReadLine();
+                if (String.IsNullOrWhiteSpace(departament))
+                {
+                    break;
+                }
+            } while (!Employee.CheckNameSurnameDepartamentName(departament));
+            if (!University.HasDepartment(university.Employees, departament))
+            {
+                throw new DepartamentNotFoundException($"{departament} adli departament yoxdur");
+            }
+            if (!String.IsNullOrWhiteSpace(departament))
+            {
+                University.ShowEmployees(university.Employees, departament);
+            }
+            else
+            {
+                University.ShowEmployees(university.Employees);
+            }
+        }
+        static void ShowEmployees(University university)
+        {
+            try
+            {
+                CheckShowEmployes(university);
+            }
+            catch (DepartamentNotFoundException exp)
             {
                 Console.WriteLine(exp.Message);
             }

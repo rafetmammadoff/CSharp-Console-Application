@@ -89,6 +89,10 @@ namespace ConsoleAppClassLibrary
                 }
                 return totalPoint / _students.Length;
             }
+            else
+            {
+                throw new StudentNotFoundException($"Universitetde oxuyan telebe yoxdur");
+            }
             return 0;
         }
 
@@ -96,8 +100,8 @@ namespace ConsoleAppClassLibrary
         {
             int totalPoint = 0;
             int count = 0;
-            if (_students.Length>0)
-            {
+            
+            
                 for (int i = 0; i < _students.Length; i++)
                 {
                     if (_students[i].GroupNo==groupNo)
@@ -106,8 +110,15 @@ namespace ConsoleAppClassLibrary
                         count++;
                     }
                 }
-                return totalPoint /count;
-            }
+                if (count>0)
+                {
+                    return totalPoint / count;
+                }
+                if (count==0)
+                {
+                    throw new StudentNotFoundException($"{groupNo} qrupunda oxuyan telebe yoxdur");
+                }
+            
             return 0;
         }
 
@@ -193,7 +204,38 @@ namespace ConsoleAppClassLibrary
             return -1;
         }
 
-        
+        public static void ShowEmployees(Employee[] employees)
+        {
+            foreach (var item in employees)
+            {
+                Console.WriteLine($"FullName:{item.FullName} - Salary:{item.Salary} - Departament:{item.DepartamentName} - No:{item.No}");
+            }
+        }
+
+        public static void ShowEmployees(Employee[] employees,string departament)
+        {
+            foreach (var item in employees)
+            {
+                if (item.DepartamentName==departament)
+                {
+                    Console.WriteLine($"FullName:{item.FullName} - Salary:{item.Salary} - Departament:{item.DepartamentName} - No:{item.No} - Position:{item.Position}");
+                }
+            }
+        }
+
+        public static bool HasDepartment(Employee[] employees,string department)
+        {
+            for (int i = 0; i < employees.Length; i++)
+            {
+                if (employees[i].DepartamentName==department)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
 
     }
 }
