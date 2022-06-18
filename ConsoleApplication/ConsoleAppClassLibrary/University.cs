@@ -143,11 +143,16 @@ namespace ConsoleAppClassLibrary
 
         public void UpdateEmployee(string no,string newPosition,int newSalary)
         {
+            
             int index = GetEmployeeIndex(no);
             if (index != -1)
             {
+                if (_employees.CalcTotalSalary() + (newSalary - _employees[index].Salary)>SalaryLimit)
+                {
+                    throw new SalaryLimitException("Deyisiklikler saxlanilmadi.Salary Limit asila bilmez");
+                }
+                _employees[index].Salary = newSalary;
                 _employees[index].Position=newPosition;
-                _employees[index].Salary=newSalary;
             }
         }
 
@@ -214,17 +219,17 @@ namespace ConsoleAppClassLibrary
         {
             foreach (var item in employees)
             {
-                Console.WriteLine($"FullName:{item.FullName} - Salary:{item.Salary} - Departament:{item.DepartamentName} - No:{item.No}");
+                Console.WriteLine($"FullName:{item.FullName} - Salary:{item.Salary} - Departament:{item.DepartamentName} - Position:{item.Position} - No:{item.No} - Employe Type:{item.EmployeeType}");
             }
         }
 
         public static void ShowEmployees(Employee[] employees,string departament)
         {
-            foreach (var item in employees)
+            foreach (var item in employees) 
             {
                 if (item.DepartamentName==departament)
                 {
-                    Console.WriteLine($"FullName:{item.FullName} - Salary:{item.Salary} - Departament:{item.DepartamentName} - No:{item.No} - Position:{item.Position}");
+                    Console.WriteLine($"FullName:{item.FullName} - Salary:{item.Salary} - Departament:{item.DepartamentName} - No:{item.No} - Position:{item.Position} - Employe Type:{item.EmployeeType}");
                 }
             }
         }
@@ -241,7 +246,22 @@ namespace ConsoleAppClassLibrary
             return false;
         }
 
-
+        public bool HasEmployeeNo(string no)
+        {
+            if (_employees.Length==0)
+            {
+                throw new EmptyException("Universitetde isci yoxdur.Evvelce elave edin");
+            }
+            for (int i = 0; i < _employees.Length; i++)
+            {
+                if (_employees[i].No==no)
+                {
+                    return true;
+                }
+            }
+            throw new EmployeeNotFoundException($"{no} nomreli isci yoxdur");
+            return false;
+        }
 
     }
 }

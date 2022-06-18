@@ -44,6 +44,61 @@ namespace ConsoleApplication
                         AddEmploye(university);
                         break;
                     case "2.3":
+                        string no;
+                        bool check=false;
+                        do
+                        {
+                            Console.WriteLine("Deyismek istediyiniz iscinin nomresini daxil edin.");
+                            no = Console.ReadLine();
+                            try
+                            {
+                               check= university.HasEmployeeNo(no);
+                            }
+                            catch (EmployeeNotFoundException exp)
+                            {
+                                Console.WriteLine(exp.Message);
+                            }
+                            catch (EmptyException exp)
+                            {
+                                Console.WriteLine(exp.Message);
+                                break;
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Bilinmedik bir xeta bas verdi");
+                            }
+                        } while (!check);
+
+                        if (check)
+                        {
+                            string newPosition;
+                            do
+                            {
+                                Console.WriteLine("Iscinin yeni vesifesini daxil edin");
+                                newPosition = Console.ReadLine();
+                            } while (!Employee.CheckPosition(newPosition));
+                            int newSalary;
+                            string newSalaryStr;
+                            do
+                            {
+                                Console.WriteLine("Iscinin yeni maasini daxil edin");
+                                newSalaryStr = Console.ReadLine();
+                            } while (!int.TryParse(newSalaryStr, out newSalary) || newSalary < 250);
+                            try
+                            {
+                                university.UpdateEmployee(no, newPosition, newSalary);
+                            }
+                            catch (SalaryLimitException exp)
+                            {
+                                Console.WriteLine(exp.Message);
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Bilinmedik xeta bas verdi");
+                            }
+                        }
+                        
+
                         break;
                 }
             } while (option != "3");
@@ -243,7 +298,7 @@ namespace ConsoleApplication
             {
                 if (university.Employees.Length==0)
                 {
-
+                    throw new EmployeeNotFoundException("Isci yoxdur.Yeni isci elave edin");
                 }
                 University.ShowEmployees(university.Employees);
             }
@@ -255,6 +310,10 @@ namespace ConsoleApplication
                 CheckShowEmployes(university);
             }
             catch (DepartamentNotFoundException exp)
+            {
+                Console.WriteLine(exp.Message);
+            }
+            catch(EmployeeNotFoundException exp)
             {
                 Console.WriteLine(exp.Message);
             }
