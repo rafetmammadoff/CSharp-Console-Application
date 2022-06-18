@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleAppClassLibrary
 {
-    internal class University : IUniversity
+    public class University : IUniversity
     {
         private string _name;
         private int _workerLimit;
@@ -185,7 +185,7 @@ namespace ConsoleAppClassLibrary
             return -1;
         }
 
-
+        
 
     }
 }

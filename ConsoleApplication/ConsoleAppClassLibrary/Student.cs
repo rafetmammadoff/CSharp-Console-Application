@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleAppClassLibrary.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -105,5 +106,21 @@ namespace ConsoleAppClassLibrary
             return false;
         }
 
+        public void ShowStudentInfo()
+        {
+            Console.WriteLine($"FullName:{FullName} - GroupNo:{GroupNo} - Point:{Point} - StudentNo:{StudentNo}");
+        }
+
+        public static bool FindGroupNo(string groupNo, Student[] students)
+        {
+            for (int i = 0; i < students.Length; i++)
+            {
+                if (students[i].GroupNo==groupNo)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
