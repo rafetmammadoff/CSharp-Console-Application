@@ -6,14 +6,23 @@ namespace ConsoleAppClassLibrary
 {
     public class Student
     {
-        //Student
-        //FullName
-        //GroupNo
-        //Point
+        public Student()
+        {
+            _totalCount++;
+            _studentNo = "ST" + _totalCount;
+        }
         private string _name;
         private string _surname;
         private string _groupNo;
         private int _point;
+        private static int _totalCount;
+        private string _studentNo;
+        public string  StudentNo
+        {
+            get => _studentNo;
+
+        }
+
         public int Point
         {
             get => _point;

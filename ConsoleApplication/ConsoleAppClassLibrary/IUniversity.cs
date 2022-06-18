@@ -16,8 +16,8 @@ namespace ConsoleAppClassLibrary
         int CalcStudentAverage();
         void AddEmployee(Employee employee);
         void AddStudent(Student student);
-        void UpdateEmployee();
-        void UpdateStudent();
-        void DeleteEmployee();
+        void UpdateEmployee(string no, string newPosition, int salary);
+        void UpdateStudent(string no, string newGroupNo);
+        void DeleteEmployee(string no);
     }
 }

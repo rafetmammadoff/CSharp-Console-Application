@@ -44,7 +44,6 @@ namespace ConsoleAppClassLibrary
                 }
             }
         }
-
         public Employee[] Employees => _employees;
 
         public Student[] Students => _students;
@@ -111,19 +110,33 @@ namespace ConsoleAppClassLibrary
             return 0;
         }
 
-        public void DeleteEmployee()
+        public void DeleteEmployee(string no)
         {
-            throw new NotImplementedException();
+            int index = GetEmployeeIndex(no);
+            if (index != -1)
+            {
+                for (int i = index; i < _employees.Length-1; i++)
+                {
+                    _employees[i] = _employees[i + 1];
+                }
+                Array.Resize(ref _employees, _employees.Length - 1);
+            }
         }
 
-        public void UpdateEmployee()
+        public void UpdateEmployee(string no,string newPosition,int newSalary)
         {
-            throw new NotImplementedException();
+            int index = GetEmployeeIndex(no);
+            if (index != -1)
+            {
+                _employees[index].Position=newPosition;
+                _employees[index].Salary=newSalary;
+            }
         }
 
-        public void UpdateStudent()
+        public void UpdateStudent(string no,string newGroupNo)
         {
-            throw new NotImplementedException();
+            int index = GetStudentIndex(no);
+            _students[index].GroupNo = newGroupNo;
         }
 
         public static bool CheckName(string text)
@@ -142,6 +155,37 @@ namespace ConsoleAppClassLibrary
             return false;
         }
 
-        
+        public int GetEmployeeIndex(string no)
+        {
+            if (_employees.Length>0)
+            {
+                for (int i = 0; i < _employees.Length; i++)
+                {
+                    if (_employees[i].No==no)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        public int GetStudentIndex(string no)
+        {
+            if (_students.Length > 0)
+            {
+                for (int i = 0; i < _students.Length; i++)
+                {
+                    if (_students[i].StudentNo == no)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return -1;
+        }
+
+
+
     }
 }
