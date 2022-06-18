@@ -41,31 +41,9 @@ namespace ConsoleApplication
                         ShowEmployees(university);
                         break;
                     case "2.2":
-                        string name;
-                        do
-                        {
-                            Console.WriteLine("Isci adini daxil edin");
-                            name= Console.ReadLine();
-                        } while (!Employee.CheckNameSurnameDepartamentName(name));
-                        string surname;
-                        do
-                        {
-                            Console.WriteLine("Isci soyadini daxil edin");
-                            surname = Console.ReadLine();
-                        } while (!Employee.CheckNameSurnameDepartamentName(surname));
-                        string position;
-                        do
-                        {
-                            Console.WriteLine("Isci vezifesini daxil edin");
-                            position = Console.ReadLine();
-                        } while (!Employee.CheckNameSurnameDepartamentName(position));
-                        int salary;
-                        string salaryStr;
-                        do
-                        {
-                            Console.WriteLine("Isci maasini daxil edin");
-                            salaryStr = Console.ReadLine();
-                        } while (!int.TryParse(salaryStr,out salary) || salary<250 || university.SalaryLimit<salary);
+                        AddEmploye(university);
+                        break;
+                    case "2.3":
                         break;
                 }
             } while (option != "3");
@@ -250,16 +228,23 @@ namespace ConsoleApplication
                     break;
                 }
             } while (!Employee.CheckNameSurnameDepartamentName(departament));
-            if (!University.HasDepartment(university.Employees, departament))
+
+            if (!String.IsNullOrWhiteSpace(departament))
             {
-                throw new DepartamentNotFoundException($"{departament} adli departament yoxdur");
+                if (!University.HasDepartment(university.Employees, departament))
+                {
+                    throw new DepartamentNotFoundException($"{departament} adli departament yoxdur");
+                }
             }
             if (!String.IsNullOrWhiteSpace(departament))
             {
                 University.ShowEmployees(university.Employees, departament);
-            }
-            else
+            }else
             {
+                if (university.Employees.Length==0)
+                {
+
+                }
                 University.ShowEmployees(university.Employees);
             }
         }
@@ -273,6 +258,61 @@ namespace ConsoleApplication
             {
                 Console.WriteLine(exp.Message);
             }
+        }
+        static void AddEmploye(University university)
+        {
+            string name;
+            do
+            {
+                Console.WriteLine("Isci adini daxil edin");
+                name = Console.ReadLine();
+            } while (!Employee.CheckNameSurnameDepartamentName(name));
+            string surname;
+            do
+            {
+                Console.WriteLine("Isci soyadini daxil edin");
+                surname = Console.ReadLine();
+            } while (!Employee.CheckNameSurnameDepartamentName(surname));
+            string position;
+            do
+            {
+                Console.WriteLine("Isci vezifesini daxil edin");
+                position = Console.ReadLine();
+            } while (!Employee.CheckPosition(position));
+            string departament;
+            do
+            {
+                Console.WriteLine("Iscinin department adini daxil edin");
+                departament = Console.ReadLine();
+            } while (!Employee.CheckNameSurnameDepartamentName(departament));
+            int salary;
+            string salaryStr;
+            do
+            {
+                Console.WriteLine("Isci maasini daxil edin");
+                salaryStr = Console.ReadLine();
+            } while (!int.TryParse(salaryStr, out salary) || salary < 250 || university.SalaryLimit < salary);
+            string empType;
+            do
+            {
+                Console.WriteLine("Isci Tipini daxiledin");
+
+                foreach (var item in Enum.GetValues(typeof(EmployeeType)))
+                {
+                    Console.WriteLine($"{(byte)item} - {item}");
+                }
+                empType = Console.ReadLine();
+            } while (empType != "0" && empType != "1" && empType != "2");
+            EmployeeType employeeType = (EmployeeType)Convert.ToInt32(empType);
+            Employee employee = new Employee(departament)
+            {
+                Name = name,
+                Surname = surname,
+                Position = position,
+                Salary = salary,
+                EmployeeType = employeeType
+            };
+            university.AddEmployee(employee);
         }
     }
 }

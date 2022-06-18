@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleAppClassLibrary.Enums
 {
-    public  enum EmployeeType
+    public  enum EmployeeType : byte
     {
         FullTime,
         PartTime,

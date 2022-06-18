@@ -13,7 +13,7 @@ namespace ConsoleAppClassLibrary
             SalaryLimit = salaryLimit;
         }
         private string _name;
-        private int _workerLimit;
+        private int _workerLimit=5;
         private int _salaryLimit;
         private Employee[] _employees=new Employee[0];
         private Student[] _students=new Student[0];
