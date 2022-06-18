@@ -11,6 +11,7 @@ namespace ConsoleAppClassLibrary
         {
             _totalCount = 1000;
         }
+        public EmployeeType EmployeeType { get; set; }
         public Employee(string departamentName)
         {
             DepartamentName = departamentName;
@@ -117,7 +118,7 @@ namespace ConsoleAppClassLibrary
             }
             return false;
         }
-        public EmployeeType EmployeeType;
+       
 
 
 

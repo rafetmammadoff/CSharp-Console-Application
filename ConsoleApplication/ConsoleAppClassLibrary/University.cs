@@ -1,4 +1,5 @@
 ﻿using ConsoleAppClassLibrary.Exceptions;
+using ConsoleAppClassLibrary.Extentions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,10 @@ namespace ConsoleAppClassLibrary
 {
     public class University : IUniversity
     {
+        public University(int salaryLimit)
+        {
+            SalaryLimit = salaryLimit;
+        }
         private string _name;
         private int _workerLimit;
         private int _salaryLimit;
@@ -51,12 +56,13 @@ namespace ConsoleAppClassLibrary
 
         public void AddEmployee(Employee employee)
         {
-            if (_employees.Length<WorkerLimit)
+            if (_employees.Length<WorkerLimit && (_employees.CalcTotalSalary() + employee.Salary<= SalaryLimit))
             {
                 Array.Resize(ref _employees, _employees.Length + 1);
                 _employees[_employees.Length - 1] = employee;
             }
         }
+        
 
         public void AddStudent(Student student)
         {

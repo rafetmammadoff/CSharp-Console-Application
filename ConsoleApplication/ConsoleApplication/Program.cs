@@ -9,7 +9,15 @@ namespace ConsoleApplication
     {
         static void Main(string[] args)
         {
-            University university = new University();
+            Console.WriteLine("Proqrama xos geldiniz.");
+            int salaryLimit;
+            string salaryLimitStr;
+            do
+            {
+                Console.WriteLine("Universitet ucun max verilecek SalaryLimit daxil edin.");
+                salaryLimitStr = Console.ReadLine();
+            } while (!int.TryParse(salaryLimitStr,out salaryLimit)||salaryLimit<250);
+            University university = new University(salaryLimit);
             string option;
             do
             {
@@ -33,6 +41,31 @@ namespace ConsoleApplication
                         ShowEmployees(university);
                         break;
                     case "2.2":
+                        string name;
+                        do
+                        {
+                            Console.WriteLine("Isci adini daxil edin");
+                            name= Console.ReadLine();
+                        } while (!Employee.CheckNameSurnameDepartamentName(name));
+                        string surname;
+                        do
+                        {
+                            Console.WriteLine("Isci soyadini daxil edin");
+                            surname = Console.ReadLine();
+                        } while (!Employee.CheckNameSurnameDepartamentName(surname));
+                        string position;
+                        do
+                        {
+                            Console.WriteLine("Isci vezifesini daxil edin");
+                            position = Console.ReadLine();
+                        } while (!Employee.CheckNameSurnameDepartamentName(position));
+                        int salary;
+                        string salaryStr;
+                        do
+                        {
+                            Console.WriteLine("Isci maasini daxil edin");
+                            salaryStr = Console.ReadLine();
+                        } while (!int.TryParse(salaryStr,out salary) || salary<250 || university.SalaryLimit<salary);
                         break;
                 }
             } while (option != "3");
@@ -44,11 +77,10 @@ namespace ConsoleApplication
             Console.WriteLine("       -1.3 - Studentde deyisiklik etmek");
             Console.WriteLine("       -1.4 - Studentlerin ortalama qiymetini gostermek");
             Console.WriteLine("       -2.1 - Iscilerin siyahisini gostermek");
-            Console.WriteLine("       -2.2 - Universitydeki iscilerin siyahisini gostermrek");
-            Console.WriteLine("       -2.3 - Isci elave etmek");
-            Console.WriteLine("       -2.4 - Isci uzerinde deyisiklik etmek");
-            Console.WriteLine("       -2.5 - Universityden isci silinmesi");
-            Console.WriteLine("       -2.6 - Axtaris et");
+            Console.WriteLine("       -2.2 - Isci elave etmek");
+            Console.WriteLine("       -2.3 - Isci uzerinde deyisiklik etmek");
+            Console.WriteLine("       -2.4 - Universityden isci silinmesi");
+            Console.WriteLine("       -2.5 - Axtaris et");
             Console.WriteLine("       -3 - Cixis et");
         }
         static void CheckShowStudents(string groupNo,University university)
