@@ -263,13 +263,32 @@ namespace ConsoleAppClassLibrary
             return false;
         }
 
-        public void Search(string search)
+        public void SearchEmployee(string search)
         {
+            if (_employees.Length==0)
+            {
+                throw new EmployeeNotFoundException("Isci yoxdur.Evvelce isci elave edin..");
+            }
             foreach (var item in _employees)
             {
                 if (item.FullName.Contains(search)||item.EmployeeType.ToString().Contains(search)||item.Position.Contains(search)||item.DepartamentName.Contains(search))
                 {
                     Console.WriteLine($"FullName:{item.FullName} - Salary:{item.Salary} - Departament:{item.DepartamentName} - No:{item.No} - Position:{item.Position} - Employe Type:{item.EmployeeType}");
+                }
+            }
+        }
+
+        public void SearchStudent(string search)
+        {
+            if (_students.Length == 0)
+            {
+                throw new StudentNotFoundException("Telebe yoxdur.Evvelce isci elave edin..");
+            }
+            foreach (var item in _students)
+            {
+                if (item.FullName.Contains(search) || item.GroupNo.Contains(search) )
+                {
+                    Console.WriteLine($"FullName:{item.FullName} - GroupNo :{item.GroupNo} - No:{item.StudentNo}");
                 }
             }
         }

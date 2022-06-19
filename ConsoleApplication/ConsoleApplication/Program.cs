@@ -50,7 +50,48 @@ namespace ConsoleApplication
                         DeleteEmployee(university);
                         break;
                     case "2.5":
-
+                        string opt;
+                        do
+                        {
+                            Console.WriteLine(" 1 - Isciler uzre axtaris");
+                            Console.WriteLine(" 2 - Telebeler uzre axtaris");
+                            opt = Console.ReadLine();
+                        } while (opt != "1" && opt != "2");
+                        switch (opt)
+                        {
+                            case "1":
+                                Console.WriteLine("Axtaris deyerini daxil edin:");
+                                string search=Console.ReadLine();
+                                try
+                                {
+                                    university.SearchEmployee(search);
+                                }
+                                catch (EmployeeNotFoundException exp)
+                                {
+                                    Console.WriteLine(exp.Message);
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Bilinmedik xeta bas verdi");
+                                }
+                                break;
+                            case "2":
+                                Console.WriteLine("Axtaris deyerini daxil edin:");
+                                search = Console.ReadLine();
+                                try
+                                {
+                                    university.SearchStudent(search);
+                                }
+                                catch (StudentNotFoundException exp)
+                                {
+                                    Console.WriteLine(exp.Message);
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Bilinmedik xeta bas verdi");
+                                }
+                                break;
+                        }
                         break;
                 }
             } while (option != "3");

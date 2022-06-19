@@ -19,6 +19,7 @@ namespace ConsoleAppClassLibrary
         void UpdateEmployee(string no, string newPosition, int salary);
         void UpdateStudent(string no, string newGroupNo);
         void DeleteEmployee(string no);
-        void Search(string search);
+        void SearchEmployee(string search);
+        void SearchStudent(string search);
     }
 }
