@@ -14,7 +14,7 @@ namespace ConsoleApplication
             string salaryLimitStr;
             do
             {
-                Console.WriteLine("Universitet ucun max verilecek SalaryLimit daxil edin.");
+                Console.WriteLine("Universitet ucun max verilecek SalaryLimit daxil edin (minimum 250 ).");
                 salaryLimitStr = Console.ReadLine();
             } while (!int.TryParse(salaryLimitStr,out salaryLimit)||salaryLimit<250);
             University university = new University(salaryLimit);
@@ -50,48 +50,10 @@ namespace ConsoleApplication
                         DeleteEmployee(university);
                         break;
                     case "2.5":
-                        string opt;
-                        do
-                        {
-                            Console.WriteLine(" 1 - Isciler uzre axtaris");
-                            Console.WriteLine(" 2 - Telebeler uzre axtaris");
-                            opt = Console.ReadLine();
-                        } while (opt != "1" && opt != "2");
-                        switch (opt)
-                        {
-                            case "1":
-                                Console.WriteLine("Axtaris deyerini daxil edin:");
-                                string search=Console.ReadLine();
-                                try
-                                {
-                                    university.SearchEmployee(search);
-                                }
-                                catch (EmployeeNotFoundException exp)
-                                {
-                                    Console.WriteLine(exp.Message);
-                                }
-                                catch (Exception)
-                                {
-                                    Console.WriteLine("Bilinmedik xeta bas verdi");
-                                }
-                                break;
-                            case "2":
-                                Console.WriteLine("Axtaris deyerini daxil edin:");
-                                search = Console.ReadLine();
-                                try
-                                {
-                                    university.SearchStudent(search);
-                                }
-                                catch (StudentNotFoundException exp)
-                                {
-                                    Console.WriteLine(exp.Message);
-                                }
-                                catch (Exception)
-                                {
-                                    Console.WriteLine("Bilinmedik xeta bas verdi");
-                                }
-                                break;
-                        }
+                        Search(university);
+                        break;
+                    default:
+                        Console.WriteLine("Yanlis deyer daxil etdiniz;");
                         break;
                 }
             } while (option != "3");
@@ -113,6 +75,10 @@ namespace ConsoleApplication
         {
             if (String.IsNullOrWhiteSpace(groupNo))
             {
+                if (university.Students.Length==0)
+                {
+                    throw new EmptyException("Hal haazirda telebe yodur. Elave edin");
+                }
                 foreach (var item in university.Students)
                 {
                     item.ShowStudentInfo();
@@ -146,6 +112,10 @@ namespace ConsoleApplication
                 string groupNo = Console.ReadLine();
                 CheckShowStudents(groupNo, university);
             }
+            catch (EmptyException exp)
+            {
+                Console.WriteLine(exp.Message);
+            }
             catch (GroupNoNotCorrectException exp)
             {
                 Console.WriteLine(exp.Message);
@@ -158,6 +128,7 @@ namespace ConsoleApplication
             {
                 Console.WriteLine("Bilinmedik bir xeta bas verdi");
             }
+
         }
         static void AddStudent(University university)
         {
@@ -201,13 +172,22 @@ namespace ConsoleApplication
             {
                 Console.WriteLine("Qrup nomresin deyismek istediyiniz telebenin nomresini daxil edin");
                 string no = Console.ReadLine();
+                if (university.GetStudentIndex(no)==-1)
+                {
+                    throw new StudentNotFoundException("Qrup nomresi tapilmadi");
+                }
                 string newGroupNo;
                 do
                 {
                     Console.WriteLine("Yeni qrup nomresini daxil edin");
                     newGroupNo = Console.ReadLine();
+
                 } while (!Student.CheckGroupNo(newGroupNo));
                 university.UpdateStudent(no, newGroupNo);
+            }
+            catch(StudentNotFoundException exp)
+            {
+                Console.WriteLine(exp.Message);
             }
             catch (StudentNoNotFoundException exp)
             {
@@ -449,6 +429,51 @@ namespace ConsoleApplication
                 }
             } while (!check);
             university.DeleteEmployee(no);
+        }
+        static void Search(University university)
+        {
+            string opt;
+            do
+            {
+                Console.WriteLine(" 1 - Isciler uzre axtaris");
+                Console.WriteLine(" 2 - Telebeler uzre axtaris");
+                opt = Console.ReadLine();
+            } while (opt != "1" && opt != "2");
+            switch (opt)
+            {
+                case "1":
+                    Console.WriteLine("Axtaris deyerini daxil edin:");
+                    string search = Console.ReadLine();
+                    try
+                    {
+                        university.SearchEmployee(search);
+                    }
+                    catch (EmployeeNotFoundException exp)
+                    {
+                        Console.WriteLine(exp.Message);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Bilinmedik xeta bas verdi");
+                    }
+                    break;
+                case "2":
+                    Console.WriteLine("Axtaris deyerini daxil edin:");
+                    search = Console.ReadLine();
+                    try
+                    {
+                        university.SearchStudent(search);
+                    }
+                    catch (StudentNotFoundException exp)
+                    {
+                        Console.WriteLine(exp.Message);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Bilinmedik xeta bas verdi");
+                    }
+                    break;
+            }
         }
     }
 }
