@@ -324,7 +324,8 @@ namespace ConsoleApplication
                 Console.WriteLine("Isci maasini daxil edin");
                 salaryStr = Console.ReadLine();
             } while (!int.TryParse(salaryStr, out salary) || salary < 250 || university.SalaryLimit < salary);
-            string empType;
+            string empTypeStr;
+            byte empType;
             do
             {
                 Console.WriteLine("Isci Tipini daxiledin");
@@ -333,8 +334,8 @@ namespace ConsoleApplication
                 {
                     Console.WriteLine($"{(byte)item} - {item}");
                 }
-                empType = Console.ReadLine();
-            } while (empType != "0" && empType != "1" && empType != "2");
+                empTypeStr = Console.ReadLine();
+            } while (!byte.TryParse(empTypeStr,out empType) || !Enum.IsDefined(typeof(EmployeeType),empType));
             EmployeeType employeeType = (EmployeeType)Convert.ToInt32(empType);
             Employee employee = new Employee(departament)
             {
